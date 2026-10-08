@@ -1,5 +1,5 @@
 # FootFit-AI
-- [ ] Resolve the preview's mixed React dependency generation and verify pages and stateful controls after reload.
+- [x] Resolve the preview's mixed React dependency generation; all three pages and upload validation work after reload with no browser errors.
 - [x] Build home, analysis, and science explanation pages.
 - [x] Connect real multipart image prediction and truthful results/error handling.
 - [x] Test response rules, upload validation, replacement/removal, and navigation; nine tests pass.
