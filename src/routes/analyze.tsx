@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { HowItWorks } from '@/components/how-it-works';
 import { TechnicalDetails } from '@/components/technical-details';
 import { AnalysisError, FOOT_TYPES, predictFoot, validateImage, type AnalysisResult } from '@/lib/footfit-api';
+import { ProfileForm, type ProfileDraft } from '@/components/profile-form';
+import { FootwearProfile } from '@/components/footwear-profile';
+import { validateAge, type Profile } from '@/lib/recommendations';
 
 export const Route = createFileRoute('/analyze')({
   head: () => ({ meta: [
@@ -22,6 +25,10 @@ function AnalysisPage() {
   const [error, setError] = useState('');
   const [detail, setDetail] = useState('');
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [draft, setDraft] = useState<ProfileDraft>({ age: '', otherActivity: '' });
+  const [profile, setProfile] = useState<Profile>({});
+  const [triedSubmit, setTriedSubmit] = useState(false);
+  const ageError = validateAge(draft.age);
   const input = useRef<HTMLInputElement>(null);
   const request = useRef<AbortController | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
@@ -36,11 +43,19 @@ function AnalysisPage() {
   }
   function remove() { setFile(null); setResult(null); setError(''); setDetail(''); if (input.current) input.current.value = ''; }
   async function analyze() {
+    if (busy) return;
     const invalid = validateImage(file);
     if (invalid || !file) { setError(invalid ?? 'Please select a foot image.'); return; }
+    setTriedSubmit(true);
+    if (ageError) { setError('Please fix your age before analyzing.'); return; }
+    if (!draft.activity) { setError('Please choose what best describes your usual day.'); return; }
     setBusy(true); setError(''); setDetail(''); setResult(null);
     const controller = new AbortController(); request.current = controller;
-    try { setResult(await predictFoot(file, controller.signal)); }
+    try {
+      const res = await predictFoot(file, controller.signal);
+      setProfile({ gender: draft.gender, age: draft.age.trim() ? Number(draft.age) : undefined, activity: draft.activity, otherActivity: draft.otherActivity.trim() || undefined });
+      setResult(res);
+    }
     catch (e) {
       if (controller.signal.aborted) return;
       const kind = e instanceof AnalysisError ? e.kind : 'unexpected';
