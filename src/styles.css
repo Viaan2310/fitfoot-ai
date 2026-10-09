@@ -194,3 +194,8 @@
 @media (max-width: 900px) { .hero-content h1 { font-size: 50px; } .hero-image { object-position: 40% 50%; opacity: .6; } .hero-content { min-height: 520px; } .pipeline-grid { grid-template-columns: repeat(4,minmax(0,1fr)); } .pipeline-arrow { display:none; } }
 @media (max-width: 600px) { .page-width { padding-inline: 22px; } .hero-content { padding-block: 54px 58px; min-height: 530px; } .hero-content h1 { font-size: 44px; } .hero-image { opacity: .22; object-position: 65% 50%; } .section-title { font-size: 27px; } .pipeline-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .feature-card { padding: 22px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.choice-card { display: flex; align-items: center; cursor: pointer; border: 1px solid var(--border); border-radius: calc(var(--radius) - 2px); background: var(--background); padding: .6rem .85rem; font-size: .8125rem; color: var(--muted-foreground); transition: border-color .15s, background-color .15s, color .15s; }
+.choice-card:hover { border-color: var(--primary); }
+.choice-card:focus-within { outline: 2px solid var(--ring); outline-offset: 2px; }
+.choice-selected { border-color: var(--primary); background: var(--accent); color: var(--primary); font-weight: 600; }
