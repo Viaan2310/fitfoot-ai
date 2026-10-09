@@ -14,7 +14,7 @@ export const ACTIVITIES = {
 } as const;
 export type Activity = keyof typeof ACTIVITIES;
 
-export type Profile = { gender?: Gender; age?: number; activity?: Activity; otherActivity?: string };
+export type Profile = { gender?: Gender | undefined; age?: number | undefined; activity?: Activity | undefined; otherActivity?: string | undefined };
 
 /** Age is optional. Returns an error message for invalid input, or null. */
 export function validateAge(raw: string): string | null {

@@ -1,6 +1,6 @@
 import { ACTIVITIES, GENDERS, type Activity, type Gender } from '@/lib/recommendations';
 
-export type ProfileDraft = { gender?: Gender; age: string; activity?: Activity; otherActivity: string };
+export type ProfileDraft = { gender?: Gender | undefined; age: string; activity?: Activity | undefined; otherActivity: string };
 
 function Choice({ name, value, label, checked, disabled, onChange }: { name: string; value: string; label: string; checked: boolean; disabled: boolean; onChange: () => void }) {
   return <label className={`choice-card ${checked ? 'choice-selected' : ''}`}>
