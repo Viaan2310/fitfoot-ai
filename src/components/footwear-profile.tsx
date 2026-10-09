@@ -1,6 +1,7 @@
 import { BrainCircuit, Lightbulb, Footprints, User } from 'lucide-react';
 import { FOOT_TYPES, type AnalysisResult } from '@/lib/footfit-api';
 import { ACTIVITIES, generateRecommendations, type Profile } from '@/lib/recommendations';
+import { ShoeProducts } from '@/components/shoe-products';
 
 export function FootwearProfile({ result, profile }: { result: AnalysisResult; profile: Profile }) {
   const footType = result.decision.final_prediction;
@@ -17,6 +18,7 @@ export function FootwearProfile({ result, profile }: { result: AnalysisResult; p
     <section aria-labelledby="recs-title"><h2 id="recs-title" className="mb-1 text-lg font-semibold">Shoe recommendations</h2><p className="mb-4 text-xs text-muted-foreground">Created by simple, transparent rules from your AI result and answers — not by the trained AI models.</p>
       <div className="grid gap-4 md:grid-cols-2">{recommendations.map(r => <article key={r.title} className="rounded-lg border border-border bg-background p-6"><h3 className="mb-3 flex items-center gap-2 font-semibold"><Footprints size={18} className="text-primary"/>{r.title}</h3><ul className="mb-3 flex flex-wrap gap-2">{r.characteristics.map(c => <li key={c} className="rounded border border-border px-2.5 py-1 text-xs text-muted-foreground">{c}</li>)}</ul><p className="mb-3 text-sm leading-6 text-muted-foreground">{r.why}</p><p className="text-xs text-foreground"><strong className="font-medium">Fitting tip:</strong> {r.fitTip}</p></article>)}</div>
     </section>
+    <ShoeProducts footType={footType} activity={profile.activity}/>
     <section className="rounded-lg border border-border bg-background p-6"><h2 className="mb-4 flex items-center gap-2 text-lg font-semibold"><Lightbulb size={18} className="text-primary"/> Personalized tips</h2><ul className="space-y-2">{tips.map(t => <li key={t} className="text-sm leading-6 text-muted-foreground">• {t}</li>)}</ul></section>
     <p className="text-xs leading-5 text-muted-foreground">FootFit-AI provides an educational image-based foot-type classification and general footwear suggestions. It is not a medical diagnosis or a substitute for professional assessment.</p>
   </div>;
