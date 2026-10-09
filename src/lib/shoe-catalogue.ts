@@ -95,7 +95,7 @@ export const CATALOGUE: ShoeProduct[] = [
   },
 ];
 
-export type ShoeFilters = { budget?: number | undefined; size?: string | undefined; width?: '' | 'Narrow' | 'Regular' | 'Wide' };
+export type ShoeFilters = { budget?: number | undefined; size?: string | undefined; width?: '' | 'Narrow' | 'Regular' | 'Wide' | undefined };
 
 /**
  * Rank and filter the catalogue for a user. Products matching the AI foot-type
